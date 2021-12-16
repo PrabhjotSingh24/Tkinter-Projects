@@ -52,10 +52,13 @@ class TodoApp(Tk):
     def load_todos(self):
         self.todo_list.delete(0, END)
         todos = self.get_todos()
-        for index, i in enumerate(todos):
-            todo, code = i[0], i[1]
-            self.todo_list.insert(
-                END, f"{index+1}. {todo.capitalize()}                                                          {code}")
+        try:
+            for index, i in enumerate(todos):
+                todo, code = i[0], i[1]
+                self.todo_list.insert(
+                    END, f"{index+1}. {todo.capitalize()}                                                          {code}")
+        except:
+            pass
 
     def mark_done(self, event):
         try:
@@ -75,11 +78,18 @@ class TodoApp(Tk):
         from random import randint
         with open("./todos.txt", 'r') as file:
             file_content = file.readlines()
-            file_content.append(f"\n{self.todo_item.get()},{randint(0,1000)}")
-            with open('./todos.txt', 'w') as file2:
-                file2.writelines(file_content)
-            self.load_todos()
-            self.todo_entry.delete(0,END)
+            if file_content==[]:
+                file_content.append(f"{self.todo_item.get()},{randint(0,1000)}")
+                with open('./todos.txt', 'w') as file2:
+                    file2.writelines(file_content)
+                self.load_todos()
+                self.todo_entry.delete(0,END)
+            else:
+                file_content.append(f"\n{self.todo_item.get()},{randint(0,1000)}")
+                with open('./todos.txt', 'w') as file2:
+                    file2.writelines(file_content)
+                self.load_todos()
+                self.todo_entry.delete(0,END)
 
 
 if __name__ == "__main__":
