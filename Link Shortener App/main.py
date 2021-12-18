@@ -81,7 +81,6 @@ class UrlShortApp(Tk):
                 link = short_link.tinyurl.short(self.link_var.get())
                 self.link_box.insert(END, link)
             elif self.api_var.get() != "" and self.link_var.get() == "":
-                print("reached here")
                 unshort_link = pyshorteners.Shortener(api_key=self.api_var.get())
                 link = unshort_link.bitly.expand(self.unshort_link_var.get())
                 self.link_box.insert(END, link)
@@ -91,7 +90,6 @@ class UrlShortApp(Tk):
                 self.link_box.insert(END, link)
         except:
             messagebox.showwarning("Alert", "Please enter a link!")
-            raise
 
 
 if __name__ == "__main__":
