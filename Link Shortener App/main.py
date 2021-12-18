@@ -90,6 +90,7 @@ class UrlShortApp(Tk):
                 self.link_box.insert(END, link)
         except:
             messagebox.showwarning("Alert", "Please enter a link!")
+            
 
 
 if __name__ == "__main__":
