@@ -1,10 +1,11 @@
 from tkinter import *
 
+
 class TodoApp(Tk):
     app_width = 450
     app_height = 530
 
-    def __init__(self,):
+    def __init__(self):
         super().__init__()
         self.title("Todo App")
         self.geometry(
@@ -12,20 +13,21 @@ class TodoApp(Tk):
         self.iconbitmap('./Notes.ico')
         self.todo_item = StringVar()
         # Labels
-        self.heading = Label(self, text="Todos", font=("Poppins Semibold", 22))
+        self.heading = Label(self, text="Todos", font=(
+            "Poppins Semibold", 22), bg="#FAFBFC")
         self.heading.pack()
         # Frames
-        self.main_frame = Frame(self)
+        self.main_frame = Frame(self, bg="#FAFBFC")
         self.main_frame.pack()
-        self.top_frame = Frame(self.main_frame)
+        self.top_frame = Frame(self.main_frame, bg="#FAFBFC")
         self.top_frame.pack()
-        self.mid_frame = Frame(self.main_frame)
+        self.mid_frame = Frame(self.main_frame, bg="#FAFBFC")
         self.mid_frame.pack()
-        self.bottom_frame = Frame(self.main_frame)
+        self.bottom_frame = Frame(self.main_frame, bg="#FAFBFC")
         self.bottom_frame.pack()
         # Scroll bar and TodoList
         self.todo_list = Listbox(self.mid_frame, selectmode=EXTENDED, font=(
-            "Poppins", 20), width=self.app_width)
+            "Poppins", 20), width=self.app_width, bg="#FAFBFC")
         self.todo_scroll = Scrollbar(
             self.mid_frame, command=self.todo_list.yview)
         self.todo_scroll.pack(side=RIGHT, fill=Y)
@@ -36,10 +38,10 @@ class TodoApp(Tk):
         self.load_todos()
         # Entry with Label
         self.todo_entry_label = Label(self.top_frame, text="Type and hit Enter: ", font=(
-            "Poppins Regular", 13), wraplength=175)
+            "Poppins Regular", 13), wraplength=175, bg="#FAFBFC")
         self.todo_entry_label.grid(row=0, column=0, padx=10)
         self.todo_entry = Entry(
-            self.top_frame, textvariable=self.todo_item, font=("Poppins Regular", 13))
+            self.top_frame, textvariable=self.todo_item, font=("Poppins Regular", 13), bg="#FAFBFC")
         self.todo_entry.grid(row=0, column=1)
         self.todo_entry.bind("<Return>", self.add_todo)
 
@@ -78,18 +80,20 @@ class TodoApp(Tk):
         from random import randint
         with open("./todos.txt", 'r') as file:
             file_content = file.readlines()
-            if file_content==[]:
-                file_content.append(f"{self.todo_item.get()},{randint(0,1000)}")
+            if file_content == []:
+                file_content.append(
+                    f"{self.todo_item.get()},{randint(0,1000)}")
                 with open('./todos.txt', 'w') as file2:
                     file2.writelines(file_content)
                 self.load_todos()
-                self.todo_entry.delete(0,END)
+                self.todo_entry.delete(0, END)
             else:
-                file_content.append(f"\n{self.todo_item.get()},{randint(0,1000)}")
+                file_content.append(
+                    f"\n{self.todo_item.get()},{randint(0,1000)}")
                 with open('./todos.txt', 'w') as file2:
                     file2.writelines(file_content)
                 self.load_todos()
-                self.todo_entry.delete(0,END)
+                self.todo_entry.delete(0, END)
 
 
 if __name__ == "__main__":
